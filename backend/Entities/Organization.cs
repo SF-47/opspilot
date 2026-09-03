@@ -2,7 +2,7 @@ namespace backend.Entities;
 
 public class Organization
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     public string Name { get; set; } = string.Empty;
 
@@ -10,4 +10,7 @@ public class Organization
 
     public ICollection<OrganizationMember> Members { get; set; }
         = new List<OrganizationMember>();
+
+    public ICollection<Customer> Customers { get; set; }
+        = new List<Customer>();
 }

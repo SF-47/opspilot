@@ -17,6 +17,8 @@ public class AppDbContext : DbContext
     public DbSet<OrganizationMember> OrganizationMembers
         => Set<OrganizationMember>();
 
+    public DbSet<Customer> Customers => Set<Customer>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -36,5 +38,28 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<OrganizationMember>()
             .Property(member => member.Role)
             .HasConversion<string>();
+
+        modelBuilder.Entity<Customer>(entity =>
+        {
+            entity.Property(customer => customer.Name)
+                .HasMaxLength(200)
+                .IsRequired();
+
+            entity.Property(customer => customer.Email)
+                .HasMaxLength(320);
+
+            entity.Property(customer => customer.Phone)
+                .HasMaxLength(50);
+
+            entity.Property(customer => customer.Notes)
+                .HasMaxLength(2000);
+
+            entity.HasIndex(customer => customer.OrganizationId);
+
+            entity.HasOne(customer => customer.Organization)
+                .WithMany(organization => organization.Customers)
+                .HasForeignKey(customer => customer.OrganizationId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
     }
 }
