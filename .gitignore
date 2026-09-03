@@ -29,7 +29,9 @@ backend/.env.*
 # IDE / Editor
 # =========================
 
-.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
 .idea/
 
 # =========================
