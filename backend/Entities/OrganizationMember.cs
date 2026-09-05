@@ -1,6 +1,6 @@
-
-using backend.Entities;
 using backend.Enums;
+
+namespace backend.Entities;
 
 public class OrganizationMember
 {
